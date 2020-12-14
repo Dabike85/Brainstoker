@@ -1,0 +1,28 @@
+﻿
+
+<form action="/" method="post">
+
+    <input type="text" name="usuario" value="" />
+    <input type="text" name="senha" value="" />
+
+    <button data-action="Login" data-url="@Url.Action("Login", "Authentication")">Login</button>
+
+</form>
+
+<button data-action="Cadastrar" data-url="@Url.Action("Caadastrar", "Authentication")">Cadastrar</button>
+
+
+<script>
+    $(document).on("click", '[data-action="Login"]', function (e) {
+        let 
+
+        e.stopImmediatePropagation();
+    })
+
+    $(document).on("click", '[data-action="Cadastrar"]', function (e) {
+
+        e.stopImmediatePropagation();
+    })
+
+
+</script>

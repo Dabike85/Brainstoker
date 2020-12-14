@@ -1,0 +1,131 @@
+﻿@model ProjetoBramStoker.ViewModels.UsuarioViewModel
+
+@{
+    Layout = "_Layout";;
+}
+
+<style>
+    .disabledbutton {
+        pointer-events: none;
+        opacity: 0.4;
+    }
+</style>
+
+<div class="row text-center" style="margin: 10px">
+    <div id="divCadastroEndereco" class="col-md-6">
+        <h4>Endereço</h4>
+        <hr />
+        <div id="formCadastro">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Endereco.Rua" class="control-label"></label>
+                <input asp-for="Endereco.Rua" class="form-control" />
+                <span asp-validation-for="Endereco.Rua" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Endereco.Numero" class="control-label"></label>
+                <input asp-for="Endereco.Numero" class="form-control" />
+                <span asp-validation-for="Endereco.Numero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Endereco.Complemento" class="control-label"></label>
+                <input asp-for="Endereco.Complemento" class="form-control" />
+                <span asp-validation-for="Endereco.Complemento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Endereco.CEP" class="control-label"></label>
+                <input asp-for="Endereco.CEP" class="form-control" />
+                <span asp-validation-for="Endereco.CEP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Endereco.Bairro" class="control-label"></label>
+                <input asp-for="Endereco.Bairro" class="form-control" />
+                <span asp-validation-for="Endereco.Bairro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button data-url="@Url.Action("CadastroEnderecoConfirm", "Authentication")" class="btn btn-block btn-success" id="btnCadastrarEndereco">Seguinte</button>
+            </div>
+        </div>
+    </div>
+    <div id="divCadastroUsuario" class="col-md-6 disabledbutton">
+        <h4>Usuario</h4>
+        <hr />
+        <div id="formCadastro">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" autocomplete="off" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Senha" class="control-label"></label>
+                <input asp-for="Senha" type="password" autocomplete="off" class="form-control" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" type="email" autocomplete="off" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button data-url="@Url.Action("CadastrarConfirm", "Authentication")" data-enderecoID="0" class="btn btn-block btn-success" id="btnCadastrar">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $("#btnCadastrarEndereco").click(function (e) {
+        let className = "disabledbutton";
+        $("#divCadastroUsuario").removeClass(className);
+        $("#divCadastroEndereco").addClass(className);
+
+        e.stopImmediatePropagation();
+    })
+
+    $("#btnCadastrar").click(function (e) {
+        let $self = $(this);
+
+        let url = $self.data("url");
+
+        let end = {
+            Rua: $("#Endereco_Rua").val(),
+            Numero: parseInt($("#Endereco_Numero").val()),
+            Complemento: $("#Endereco_Complemento").val(),
+            CEP: $("#Endereco_CEP").val(),
+            Bairro: $("#Endereco_Bairro").val()
+        }
+        let data = {
+            Username: $("#Username").val(),
+            Senha: $("#Senha").val(),
+            Email: $("#Email").val(),
+            Endereco: end
+        }
+
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: data,
+            success: function (resposta) {
+                let { message, status } = resposta;
+
+                if (status == 1) {
+                    toastr.error(message, 'Sucesso ...')
+                    setTimeout(() => {
+                        window.location.href = '@Url.Action("Login", "Authentication")'
+                    }, 300)
+                } else {
+                    toastr.success(message, 'Ops ...')
+                }
+            },
+            error: function (err) {
+                console.log(err.responseText)
+            }
+        })
+
+        e.stopImmediatePropagation();
+    })
+
+
+</script>

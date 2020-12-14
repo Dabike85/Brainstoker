@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ProjetoBramStoker.ViewModels.ProdutoViewModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";;
+}
+
+<div style="display: flex; flex-direction: row">
+    @foreach (var produto in Model)
+    {
+        <div class="card" style="width: 15rem;margin: 10px">
+            <img style="margin: 10px" class="card-img-top" src="@produto.Imagem" alt="Card image cap" >
+            <div class="card-body">
+                <h5 class="card-title">@produto.Titulo</h5>
+                <p class="card-text">@produto.Descricao</p>
+                @{ 
+                    var dict = new Dictionary<string, string>();
+                    dict.Add("produtoId", produto.ProdutoID.ToString());
+                }
+                <a class="btn btn-block btn-primary" asp-action="Details" asp-controller="Produto" asp-all-route-data="dict">Pegar</a>
+            </div>
+        </div>
+   }
+</div>
+
+
+
+
+

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ProjetoBramStoker.ViewModels.ProdutoViewModel>
+
+@{
+    Layout = "_Layout";;
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    @foreach (var produto in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="@produto.Imagem" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@produto.Titulo</h5>
+                <p class="card-text">@produto.Descricao</p>
+                <a href="#" class="btn btn-primary">Pegar</a>
+            </div>
+        </div>
+    }
+</div>
+
+
+

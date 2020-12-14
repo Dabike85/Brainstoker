@@ -1,0 +1,59 @@
+﻿@model ProjetoBramStoker.ViewModels.ProdutoViewModel
+
+
+@{ 
+    Layout = "_Layout";;
+}
+
+<section class="mb-5" style="margin: 10px">
+    <div class="row">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div id="mdb-lightbox-ui"></div>
+
+            <div class="mdb-lightbox">
+                <div class="row product-gallery mx-1">
+                    <div class="col-12 mb-0">
+                        <figure class="view overlay rounded z-depth-1 main-img">
+                            <img src="@Model.Imagem" class="img-fluid z-depth-1">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <h5>@Model.Titulo</h5>
+            <p class="mb-2 text-muted text-uppercase small">Shirts</p>
+            <p><span class="mr-1"><strong>Gratis</strong></span></p>
+            <p class="pt-1">
+                @Model.Descricao
+            </p>
+            <div class="table-responsive">
+                <table class="table table-sm table-borderless mb-0">
+                    <tbody>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Modelo</strong></th>
+                            <td>@Model.Modelo</td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Cor</strong></th>
+                            <td>@Model.Cor</td>
+                        </tr>
+                        @*<tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Anunciante</strong></th>
+                            <td>@Model.Usuario.Username</td>
+                        </tr>*@
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            @{ 
+                var dict = new Dictionary<string, string>();
+                dict.Add("produtoId", Model.ProdutoID.ToString());
+            }
+            <a asp-controller="Produto" asp-action="PegarConfirm" asp-all-route-data="@dict" class="btn btn-primary btn-block" >Pegar Agora</a>
+        </div>
+    </div>
+
+</section>
+
